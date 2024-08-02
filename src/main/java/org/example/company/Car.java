@@ -1,16 +1,18 @@
 package org.example.company;
 
+import java.util.Objects;
+
 public class Car {
     private boolean engine;
     private int cylinders;
     private String name;
-    private  int wheel;
+    private  int wheels;
 
-    public Car(boolean engine , int cylinders, String name,int wheel) {
-        this.engine = engine;
+    public Car( int cylinders, String name) {
+        this.engine = Boolean.TRUE;
         this.cylinders = cylinders;
         this.name = name;
-        this.wheel = wheel;
+        this.wheels = 4;
     }
 
     public boolean isEngine() {
@@ -25,8 +27,8 @@ public class Car {
         return name;
     }
 
-    public int getWheel() {
-        return wheel;
+    public int getWheels() {
+        return wheels;
     }
 
     public void setEngine(boolean engine) {
@@ -41,31 +43,50 @@ public class Car {
         this.name = name;
     }
 
-    public void setWheel(int wheel) {
-        this.wheel = wheel;
+    public void setWheels(int wheel) {
+        this.wheels = wheels;
     }
-    public void startEngine() {
-        System.out.println(getClass().getSimpleName()+"the car's engine is starting");
+    private void printSimpleName() {
+        System.out.println("Class name:" + getClass().getSimpleName());
     }
-    public void accelerate() {
-        System.out.println(getClass().getSimpleName()+"the car is accelerating");
+    public String startEngine() {
+        printSimpleName();
+        return "the car's engine is starting";
     }
-    public void brake() {
-        System.out.println(getClass().getSimpleName()+"the car is braking");
+    public String  accelerate() {
+        printSimpleName();
+        return "the car is accelerating";
+    }
+    public String brake() {
+        printSimpleName();
+        return "the car is braking";
     }
 
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Car car)) return false;
+        return cylinders == car.cylinders && Objects.equals(name, car.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cylinders, name);
+    }
     @Override
     public String toString() {
         return "Car{" +
                 "engine=" + engine +
                 ", cylinders=" + cylinders +
                 ", name='" + name + '\'' +
-                ", wheel=" + wheel +
+                ", wheels=" + wheels +
                 '}';
     }
-
-    @Override
-    public boolean equals(Object car) {
-        return ((Car)car).cylinders==this.cylinders&&((Car)car).name.equals(this.name);
-    }
+    //
+//    @Override
+//    public boolean equals(Object car) {
+//        return ((Car)car).cylinders==this.cylinders&&((Car)car).name.equals(this.name);
+//    }
 }
